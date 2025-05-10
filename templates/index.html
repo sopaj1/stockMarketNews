@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock News</title>
+    <style>
+        .container {
+            border: 2px solid green;
+            padding: 20px;
+            background-color: white;
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        input[type="text"] {
+            padding: 5px;
+            width: 70%;
+        }
+        button {
+            background-color: blue;
+            color: white;
+            padding: 5px 15px;
+            border: none;
+            cursor: pointer;
+        }
+        a {
+            color: blue;
+            text-decoration: underline;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form method="post">
+            <input type="text" name="symbol" placeholder="Search" />
+            <button type="submit">Enter</button>
+        </form>
+
+        {% if data %}
+            <div>
+                <h2>{{ data.symbol }}</h2>
+                <p>Sentiment: {{ data.sentiment_score | float | round(2) }}</p>
+                <p>Bullish Article: <a href="{{ data.bullish_article }}">{{ data.bullish_article }}</a></p>
+                <p>Bearish Article: <a href="{{ data.bearish_article }}">{{ data.bearish_article }}</a></p>
+            </div>
+        {% elif error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
